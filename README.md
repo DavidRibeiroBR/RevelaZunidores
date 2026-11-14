@@ -12,6 +12,7 @@ English is the default language. Portuguese (Brazil) is available as an option.
 | `reshade_addon/` | ReShade add-on (`RevelaZunidores.addon64`) that draws the in-game overlay, plus its C++ source |
 | `MemberVariableLayout.ini` | UE4SS member layout for Atomic Heart's modified UE 4.27 |
 | `UE4SS_Signatures/` | Signature overrides for UE4SS (ConsoleManager, StaticConstructObject) |
+| `UE4SS-settings.ini` | UE4SS settings for Atomic Heart (`FExecVTableOffsetInLocalPlayer = 0x30`, hot reload and console on) |
 
 ## Requirements
 
@@ -24,7 +25,7 @@ English is the default language. Portuguese (Brazil) is available as an option.
 All paths are relative to `AtomicHeart/Binaries/Win64/`.
 
 1. Install UE4SS in the game.
-2. Copy `MemberVariableLayout.ini` and the `UE4SS_Signatures` folder into the UE4SS folder (next to `UE4SS.dll`).
+2. Copy `MemberVariableLayout.ini`, `UE4SS-settings.ini` and the `UE4SS_Signatures` folder into the UE4SS folder (next to `UE4SS.dll`). If you keep your own settings file, set `FExecVTableOffsetInLocalPlayer = 0x30`.
 3. Copy the `RevelaZunidores` folder into UE4SS's `Mods/` folder and enable it (`mods.txt` or an `enabled.txt` file inside the mod folder).
 4. Optional: install ReShade (add-on version) for the game and copy `reshade_addon/RevelaZunidores.addon64` next to the game executable.
 5. Optional: open the menu with `RevelaZunidores/menu/Abrir menu.bat`.
