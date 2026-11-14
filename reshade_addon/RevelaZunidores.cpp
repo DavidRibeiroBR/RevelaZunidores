@@ -20,6 +20,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <map>
 #include <string>
 #include <utility>
 #include <vector>
@@ -319,7 +320,8 @@ void atualizar_dados()
         if (const Valor *cs = estado.campo("categorias"); cs && cs->t == Valor::Lista)
             for (const Valor &c : cs->a)
             {
-                Categoria cat{ int(c.num("i")), c.txt("nome"), c.txt("conteudo"), 0, c.num("dist", 0), {} };
+                // sem "dist" no estado (mod antigo): 500 m, nunca "sem limite" (pesa no Limbo)
+                Categoria cat{ int(c.num("i")), c.txt("nome"), c.txt("conteudo"), 0, c.num("dist", 500), {} };
                 if (const Valor *its = c.campo("itens"); its && its->t == Valor::Lista)
                     for (const Valor &it : its->a)
                         cat.itens.push_back({ it.txt("n"), it.num("x"), it.num("y"), it.num("z"), it.boo("h") });
@@ -442,10 +444,13 @@ void desenhar(reshade::api::effect_runtime *runtime)
     char rotulo[160];
     if (cfg.marcadores)
     {
-        int n = 0;
+        // limite POR CATEGORIA: uma categoria com muitos itens perto (ex.: 432 macas)
+        // nao pode esconder as outras categorias marcadas
+        std::map<int, int> por_cat;
         for (const Alvo &a : lista)
         {
-            if (n >= cfg.max_marcadores) break;
+            int &n = por_cat[a.cat];
+            if (n >= cfg.max_marcadores) continue;
             ImVec2 s;
             if (!cam.projetar(a.it->x, a.it->y, a.it->z, W, H, s) || s.x < -20 || s.x > W + 20 || s.y < -20 || s.y > H + 20) continue;
             ++n;
@@ -506,10 +511,10 @@ void desenhar(reshade::api::effect_runtime *runtime)
             dl->AddLine(ImVec2(xx, yb - (a % 45 == 0 ? 6 : 3) * esc), ImVec2(xx, yb), cinza, 1.f);
         }
         texto_contorno(dl, ImVec2(W / 2 - 4 * esc, yb - 20 * esc), IM_COL32_WHITE, "v", fonte);
-        int n = 0;
+        std::map<int, int> por_cat; // ate 20 pontos por categoria na bussola
         for (const Alvo &a : lista)
         {
-            if (n++ >= 60) break;
+            if (por_cat[a.cat]++ >= 20) continue;
             double ru = cam.rumo(a.it->x, a.it->y);
             if (std::abs(ru) > 90) continue;
             float xx = float(W / 2 + ru / 90 * larg / 2);
@@ -553,7 +558,7 @@ void configuracoes(reshade::api::effect_runtime *)
         mudou |= ImGui::Checkbox(TR("Show actor name on marker###nomes", "Mostrar nome do ator no marcador###nomes"), &cfg.nomes);
         mudou |= ImGui::Checkbox(TR("Screen-edge arrow to the nearest###seta", "Seta na borda para o mais proximo###seta"), &cfg.seta);
         mudou |= ImGui::Checkbox(TR("Compass at the top###bussola", "Bussola no topo###bussola"), &cfg.bussola);
-        mudou |= ImGui::SliderInt(TR("Max. markers###maxm", "Max. de marcadores###maxm"), &cfg.max_marcadores, 1, 300);
+        mudou |= ImGui::SliderInt(TR("Max. markers per category###maxm", "Max. de marcadores por categoria###maxm"), &cfg.max_marcadores, 1, 300);
         mudou |= ImGui::SliderFloat(TR("Scale###esc", "Escala###esc"), &cfg.escala, 0.5f, 3.f, "%.2f");
     }
 

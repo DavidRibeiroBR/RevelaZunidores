@@ -527,6 +527,36 @@ end
 
 local proximaDescoberta, proximaAtualizacao, pedirRecarga = 0, 0, false
 
+-- Descoberta rapida: ao carregar um save ou trocar de mapa, o nivel ainda esta
+-- sendo carregado (a primeira busca chega a ver so ~500 de ~3700 atores).
+-- Enquanto a contagem de atores nao estabiliza, a busca completa se repete a
+-- cada INTERVALO_DESCOBERTA_RAPIDA_MS, em vez de esperar INTERVALO_DESCOBERTA_MS.
+local rapida = { ativa = true, inicio = nil, ate = nil, ultimoN = nil, estaveis = 0 }
+
+local function iniciarDescobertaRapida()
+    rapida.ativa, rapida.inicio, rapida.ate, rapida.ultimoN, rapida.estaveis = true, nil, nil, nil, 0
+end
+
+-- decide o intervalo ate a proxima busca completa, a partir do total de atores n.
+-- A fase rapida termina quando a contagem fica estavel em 2 buscas seguidas
+-- (variacao de ate 2%) depois de pelo menos 15 s, ou no tempo maximo.
+local function intervaloAposDescoberta(agora, n)
+    if not rapida.ativa then return MENU.INTERVALO_DESCOBERTA_MS end
+    rapida.inicio = rapida.inicio or agora
+    rapida.ate = rapida.ate or (agora + (MENU.DESCOBERTA_RAPIDA_MAX_MS or 45000))
+    if rapida.ultimoN and math.abs(n - rapida.ultimoN) <= math.max(10, rapida.ultimoN * 0.02) then
+        rapida.estaveis = rapida.estaveis + 1
+    else
+        rapida.estaveis = 0
+    end
+    rapida.ultimoN = n
+    if (rapida.estaveis >= 2 and agora - rapida.inicio >= 15000) or agora >= rapida.ate then
+        rapida.ativa = false
+        return MENU.INTERVALO_DESCOBERTA_MS
+    end
+    return MENU.INTERVALO_DESCOBERTA_RAPIDA_MS or 3000
+end
+
 local function executarComando(cmd, pc, pawn)
     local nome, resto = cmd:match("^(%S+)%s*(.*)$")
     if nome == "recarregar" then
@@ -601,9 +631,12 @@ local function tickMenu()
     if pawn and agora >= proximaDescoberta then
         local n = descobrirClasses()
         atualizarItens()
-        proximaDescoberta = agora + MENU.INTERVALO_DESCOBERTA_MS
+        local estavaRapida = rapida.ativa
+        proximaDescoberta = agora + intervaloAposDescoberta(agora, n)
         proximaAtualizacao = agora + MENU.INTERVALO_ITENS_MS
-        log(L("Full scan: ", "Busca completa: ") .. n .. L(" actors checked.", " atores verificados."))
+        if not estavaRapida or not rapida.ativa then
+            log(L("Full scan: ", "Busca completa: ") .. n .. L(" actors checked.", " atores verificados."))
+        end
     elseif pawn and agora >= proximaAtualizacao then
         atualizarItens()
         proximaAtualizacao = agora + MENU.INTERVALO_ITENS_MS
@@ -689,7 +722,8 @@ if MENU.ATIVO then
     pcall(function()
         RegisterLoadMapPostHook(function()
             zerarCache()
-            proximaDescoberta = os.time() * 1000 + 5000
+            iniciarDescobertaRapida()
+            proximaDescoberta = os.time() * 1000 + (MENU.INTERVALO_DESCOBERTA_RAPIDA_MS or 3000)
         end)
     end)
 end

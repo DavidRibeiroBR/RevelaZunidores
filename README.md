@@ -56,6 +56,17 @@ Distance and language can also be changed live in the menu window and in the ReS
 
 Needs Visual Studio 2022 Build Tools with C++. Run `reshade_addon/compilar.bat`. Tests: `reshade_addon/teste/testar.bat`.
 
+## Changelog
+
+**1.0.1**
+- Steam overlay (Shift+Tab) works again: the bundled `UE4SS-settings.ini` no longer opens the UE4SS debug window (`GuiConsoleEnabled = 0`), which took over the overlay.
+- Markers and compass are limited per category ("Max. markers per category"), so a category with many nearby items (Limbo apples) no longer hides the other checked categories.
+- Markers show up seconds after loading a save: the mod repeats the full scan every 3 s while the level is still loading, instead of waiting 60 s.
+- The ReShade add-on uses 500 m, never "no limit", when the mod does not send a category distance.
+
+**1.0.0**
+- First release.
+
 ## Third-party files
 
 `reshade_addon/sdk/` contains headers from the [ReShade SDK](https://github.com/crosire/reshade) (BSD 3-Clause) and [Dear ImGui](https://github.com/ocornut/imgui) (MIT), under their own licenses.

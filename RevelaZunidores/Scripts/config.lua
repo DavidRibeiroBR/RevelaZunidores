@@ -107,6 +107,11 @@ return {
         -- A cada quantos ms o mod varre TODOS os atores para descobrir classes novas
         -- (e a operacao mais pesada; tambem roda ao trocar de mapa e no botao "Atualizar busca")
         INTERVALO_DESCOBERTA_MS = 60000,
+        -- Logo depois de carregar um save ou trocar de mapa, o nivel ainda esta
+        -- carregando: a busca completa se repete a cada INTERVALO_DESCOBERTA_RAPIDA_MS
+        -- ate o numero de atores estabilizar (ou DESCOBERTA_RAPIDA_MAX_MS passar)
+        INTERVALO_DESCOBERTA_RAPIDA_MS = 3000,
+        DESCOBERTA_RAPIDA_MAX_MS = 45000,
         -- A cada quantos ms o mod grava camera.json (usado pela camada sobre o jogo)
         CAMERA_MS = 50,
         -- Quantos itens por categoria (os mais proximos) vao para estado.json.
