@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+reshade_addon/build/
+reshade_addon/teste/*.exe
+*.obj
+*.exp
+*.lib
+estado.json
+comandos.txt
+classes.txt
+encontrados.txt
+inspecao.txt

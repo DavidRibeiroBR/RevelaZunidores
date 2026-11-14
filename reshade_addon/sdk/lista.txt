@@ -1,0 +1,8 @@
+reshade.hpp
+reshade_api.hpp
+reshade_api_device.hpp
+reshade_api_format.hpp
+reshade_api_pipeline.hpp
+reshade_api_resource.hpp
+reshade_events.hpp
+reshade_overlay.hpp
