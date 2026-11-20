@@ -1,8 +1,4 @@
-# RevelaZunidores
 
-Collectible finder for **Atomic Heart** (base game + DLCs). It shows where the collectibles of the current map are: Chirpers, talking corpses, Testing Ground crates, weapon blueprints, Limbo apples and coins, DLC4 statuettes and more.
-
-English is the default language. Portuguese (Brazil) is available as an option.
 
 
 
@@ -33,7 +29,9 @@ English is the default language. Portuguese (Brazil) is available as an option.
 
 ---
 
+Collectible finder for **Atomic Heart** (base game + DLCs). It shows where the collectibles of the current map are: Chirpers, talking corpses, Testing Ground crates, weapon blueprints, Limbo apples and coins, DLC4 statuettes and more.
 
+English is the default language. Portuguese (Brazil) is available as an option.
 
 ## Parts
 
