@@ -14,16 +14,16 @@ English is the default language. Portuguese (Brazil) is available as an option.
 
 <p>
   <a href="https://davidribeirobr.github.io/RevelaZunidores/">
-    <img src="https://img.shields.io/badge/🌐_OPEN_PROJECT_PAGE-Guides_&_Interactive_Docs_(EN_/_PT--BR)-d9383a?style=for-the-badge" alt="Open Project Page">
+    <img src="https://img.shields.io/badge/🌐_OPEN_PROJECT_PAGE-Guides_&_Interactive_Docs_(EN_/_PT--BR)-d9383a?style=for-the-badge" alt="Open Project Page" height="42">
   </a>
 </p>
 
 <p>
   <a href="https://www.nexusmods.com/atomicheart/mods/277">
-    <img src="https://img.shields.io/badge/Nexus_Mods-Download-da8e35?style=for-the-badge&logo=nexusmods&logoColor=white" alt="Nexus Mods">
+    <img src="https://img.shields.io/badge/Nexus_Mods-Download-da8e35?style=for-the-badge&logo=nexusmods&logoColor=white" alt="Nexus Mods" height="28">
   </a>
   <a href="https://github.com/DavidRibeiroBR/RevelaZunidores/tags">
-    <img src="https://img.shields.io/badge/GitHub-Tags_&_Source-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Tags">
+    <img src="https://img.shields.io/badge/GitHub-Tags_&_Source-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Tags" height="28">
   </a>
 </p>
 
