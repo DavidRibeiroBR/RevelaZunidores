@@ -5,7 +5,6 @@ Collectible finder for **Atomic Heart** (base game + DLCs). It shows where the c
 English is the default language. Portuguese (Brazil) is available as an option.
 
 **Download:** [Nexus Mods](https://www.nexusmods.com/atomicheart/mods/277) (ready-to-install zip).
-              
               [Github](https://github.com/DavidRibeiroBR/RevelaZunidores/tags) (ready-to-install zip).
 
 ## Parts
