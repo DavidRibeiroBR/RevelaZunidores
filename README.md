@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://www.nexusmods.com/atomicheart/mods/277"><img src="https://img.shields.io/badge/Nexus_Mods-Download-da8e35?style=for-the-badge&logo=nexusmods&logoColor=white" alt="Nexus Mods" height="28"></a>
-  <a href="https://github.com/DavidRibeiroBR/RevelaZunidores/tags"><img src="https://img.shields.io/badge/GitHub-Tags_%26_Source-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Tags" height="28"></a>
+  <a href="https://github.com/DavidRibeiroBR/RevelaZunidores/releases"><img src="https://img.shields.io/badge/GitHub-Releases_%26_Source-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Tags" height="28"></a>
 </p>
 
 </div>
