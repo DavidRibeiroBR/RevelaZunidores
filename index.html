@@ -400,6 +400,74 @@
       background: #28313e;
     }
 
+    /* Detailed Guide Accordion */
+    details.guide-step {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 0.85rem;
+      overflow: hidden;
+    }
+
+    details.guide-step:last-child {
+      margin-bottom: 0;
+    }
+
+    details.guide-step > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.98rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    details.guide-step > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.guide-step > summary::after {
+      content: "+";
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      transition: transform 0.2s;
+    }
+
+    details.guide-step[open] > summary::after {
+      content: "−";
+    }
+
+    details.guide-step > summary:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .guide-body {
+      padding: 0.25rem 1.15rem 1.15rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .guide-body .step-list {
+      margin-top: 0.85rem;
+    }
+
+    .guide-sub {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0.9rem 0 0.4rem;
+    }
+
+    .guide-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.15rem 0;
+    }
+
     /* Changelog */
     .version-block {
       border-left: 2px solid var(--border);
@@ -439,17 +507,21 @@
       color: var(--text-muted);
     }
 
-    /* Language toggle visibility */
+    /* Language toggle visibility (!important prevents display:flex on h2 from overriding) */
     [data-lang="pt"] {
-      display: none;
+      display: none !important;
     }
 
     body.lang-pt [data-lang="en"] {
-      display: none;
+      display: none !important;
     }
 
     body.lang-pt [data-lang="pt"] {
-      display: revert;
+      display: revert !important;
+    }
+
+    body.lang-pt section.card h2[data-lang="pt"] {
+      display: flex !important;
     }
 
     @media (max-width: 680px) {
@@ -478,8 +550,10 @@
       <nav class="nav-links">
         <a href="#parts" data-lang="en">Structure</a>
         <a href="#parts" data-lang="pt">Estrutura</a>
-        <a href="#install" data-lang="en">Install</a>
-        <a href="#install" data-lang="pt">Instalação</a>
+        <a href="#install" data-lang="en">Quick Install</a>
+        <a href="#install" data-lang="pt">Instalação Rápida</a>
+        <a href="#detailed-guide" data-lang="en">Step-by-Step</a>
+        <a href="#detailed-guide" data-lang="pt">Passo a Passo</a>
         <a href="#keys" data-lang="en">Keys</a>
         <a href="#keys" data-lang="pt">Teclas</a>
         <a href="#changelog">Changelog</a>
@@ -680,6 +754,195 @@
         <li><strong>Opcional:</strong> instale o ReShade (versão com suporte a add-ons) para o jogo e copie <code>reshade_addon/RevelaZunidores.addon64</code> para a pasta do executável do jogo.</li>
         <li><strong>Opcional:</strong> abra a janela de menu executando <code>RevelaZunidores/menu/Abrir menu.bat</code>.</li>
       </ol>
+    </section>
+
+    <!-- Detailed Installation Guide -->
+    <section class="card" id="detailed-guide">
+      <h2 data-lang="en">Installation Guide — Step-by-Step</h2>
+      <h2 data-lang="pt">Guia de Instalação — Passo a Passo</h2>
+
+      <p style="margin-bottom: 1.15rem;">
+        <a href="https://youtu.be/NxZAhpDcAh0" target="_blank" rel="noopener noreferrer" class="inline-link">
+          <span data-lang="en">▶️ Watch the installation tutorial on YouTube</span>
+          <span data-lang="pt">▶️ Assistir ao tutorial de instalação no YouTube</span>
+        </a>
+      </p>
+
+      <!-- STEP 0 -->
+      <details class="guide-step">
+        <summary>
+          <strong data-lang="en">📥 STEP 0 — Downloads & Preparation</strong>
+          <strong data-lang="pt">📥 PASSO 0 — Downloads & Preparação</strong>
+        </summary>
+        <div class="guide-body">
+          <ol class="step-list" data-lang="en">
+            <li>Download and extract the <strong>RevelaZunidores</strong> mod ZIP from GitHub.</li>
+            <li>Download and extract the <strong>UE4SS</strong> ZIP from GitHub.</li>
+            <li>Install <strong>ReShade 6.8.0</strong> using the <strong>Full Add-on Support</strong> version. Run <code>ReShade_Setup_6.8.0_Addon.exe</code>, select <code>AtomicHeart-Win64-Shipping.exe</code>, and click <strong>Next</strong> until the installation is complete.</li>
+          </ol>
+          <ol class="step-list" data-lang="pt">
+            <li>Baixe e extraia o ZIP do mod <strong>RevelaZunidores</strong> no GitHub.</li>
+            <li>Baixe e extraia o ZIP do <strong>UE4SS</strong> no GitHub.</li>
+            <li>Instale o <strong>ReShade 6.8.0</strong> usando a versão <strong>Full Add-on Support</strong>. Execute <code>ReShade_Setup_6.8.0_Addon.exe</code>, selecione <code>AtomicHeart-Win64-Shipping.exe</code> e clique em <strong>Next</strong> até concluir a instalação.</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- STEP 1 -->
+      <details class="guide-step">
+        <summary>
+          <strong data-lang="en">⚙️ STEP 1 — Installing UE4SS v4.0.0</strong>
+          <strong data-lang="pt">⚙️ PASSO 1 — Instalando o UE4SS v4.0.0</strong>
+        </summary>
+        <div class="guide-body">
+          <ol class="step-list" data-lang="en">
+            <li>Open the extracted <code>UE4SS_v4.0.0</code> folder and copy all the files inside it.</li>
+            <li>Paste everything into the game's <code>Win64</code> folder:</li>
+          </ol>
+          <ol class="step-list" data-lang="pt">
+            <li>Abra a pasta extraída <code>UE4SS_v4.0.0</code> e copie todos os arquivos dentro dela.</li>
+            <li>Cole tudo dentro da pasta <code>Win64</code> do jogo:</li>
+          </ol>
+
+          <div class="path-banner">
+            <code>Atomic Heart\AtomicHeart\Binaries\Win64</code>
+            <button class="copy-btn" onclick="copyText('Atomic Heart\\AtomicHeart\\Binaries\\Win64', this)">Copy</button>
+          </div>
+        </div>
+      </details>
+
+      <!-- STEP 2 -->
+      <details class="guide-step">
+        <summary>
+          <strong data-lang="en">🛠️ STEP 2 — Mod Setup (RevelaZunidores)</strong>
+          <strong data-lang="pt">🛠️ PASSO 2 — Configuração do Mod (RevelaZunidores)</strong>
+        </summary>
+        <div class="guide-body">
+          <h3 class="guide-sub" data-lang="en">📌 Part 1 — Configuration Files</h3>
+          <h3 class="guide-sub" data-lang="pt">📌 Parte 1 — Arquivos de Configuração</h3>
+
+          <ol class="step-list" data-lang="en">
+            <li>
+              Inside the extracted mod folder, copy the following files and folder:
+              <ul class="clean-list" style="margin-top: 0.45rem;">
+                <li><code>MemberVariableLayout.ini</code></li>
+                <li><code>UE4SS-settings.ini</code></li>
+                <li><code>UE4SS_Signatures</code> (folder)</li>
+              </ul>
+            </li>
+            <li>Navigate to the <code>ue4ss</code> folder inside your game directory:</li>
+          </ol>
+
+          <ol class="step-list" data-lang="pt">
+            <li>
+              Dentro da pasta extraída do mod, copie os seguintes arquivos e pasta:
+              <ul class="clean-list" style="margin-top: 0.45rem;">
+                <li><code>MemberVariableLayout.ini</code></li>
+                <li><code>UE4SS-settings.ini</code></li>
+                <li><code>UE4SS_Signatures</code> (pasta)</li>
+              </ul>
+            </li>
+            <li>Acesse a pasta <code>ue4ss</code> dentro do diretório do jogo:</li>
+          </ol>
+
+          <div class="path-banner">
+            <code>Atomic Heart\AtomicHeart\Binaries\Win64\ue4ss</code>
+            <button class="copy-btn" onclick="copyText('Atomic Heart\\AtomicHeart\\Binaries\\Win64\\ue4ss', this)">Copy</button>
+          </div>
+
+          <ol class="step-list" start="3" data-lang="en">
+            <li>Paste the copied files and folder into this directory.</li>
+            <li>Select <strong>Replace the files in the destination</strong> when prompted.</li>
+          </ol>
+          <ol class="step-list" start="3" data-lang="pt">
+            <li>Cole os arquivos e a pasta copiados nesse diretório.</li>
+            <li>Selecione <strong>Substituir os arquivos no destino</strong> quando solicitado.</li>
+          </ol>
+
+          <hr class="guide-divider">
+
+          <h3 class="guide-sub" data-lang="en">📌 Part 2 — Enabling the Mod</h3>
+          <h3 class="guide-sub" data-lang="pt">📌 Parte 2 — Ativando o Mod</h3>
+
+          <ol class="step-list" data-lang="en">
+            <li>Inside the extracted <code>RevelaZunidores-1.0.1</code> folder, locate and copy the <code>RevelaZunidores</code> folder.</li>
+            <li>Navigate to the UE4SS <code>Mods</code> folder:</li>
+          </ol>
+          <ol class="step-list" data-lang="pt">
+            <li>Dentro da pasta extraída <code>RevelaZunidores-1.0.1</code>, localize e copie a pasta <code>RevelaZunidores</code>.</li>
+            <li>Acesse a pasta <code>Mods</code> do UE4SS:</li>
+          </ol>
+
+          <div class="path-banner">
+            <code>Atomic Heart\AtomicHeart\Binaries\Win64\ue4ss\Mods</code>
+            <button class="copy-btn" onclick="copyText('Atomic Heart\\AtomicHeart\\Binaries\\Win64\\ue4ss\\Mods', this)">Copy</button>
+          </div>
+
+          <ol class="step-list" start="3" data-lang="en">
+            <li>Paste the <code>RevelaZunidores</code> folder inside.</li>
+            <li>Open the newly copied <code>RevelaZunidores</code> folder and create an empty file named <code>enabled.txt</code>.</li>
+          </ol>
+          <ol class="step-list" start="3" data-lang="pt">
+            <li>Cole a pasta <code>RevelaZunidores</code> dentro dela.</li>
+            <li>Abra a pasta <code>RevelaZunidores</code> recém-copiada e crie um arquivo vazio chamado <code>enabled.txt</code>.</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- STEP 3 -->
+      <details class="guide-step">
+        <summary>
+          <strong data-lang="en">🖥️ STEP 3 — On-Screen Icons (ReShade Add-on)</strong>
+          <strong data-lang="pt">🖥️ PASSO 3 — Ícones na Tela (Add-on do ReShade)</strong>
+        </summary>
+        <div class="guide-body">
+          <ol class="step-list" data-lang="en">
+            <li>Go back to the extracted <code>RevelaZunidores-1.0.1</code> folder.</li>
+            <li>Open the <code>reshade_addon</code> folder.</li>
+            <li>Copy the <code>RevelaZunidores.addon64</code> file.</li>
+            <li>Paste it into the game's <code>Win64</code> folder:</li>
+          </ol>
+          <ol class="step-list" data-lang="pt">
+            <li>Volte para a pasta extraída <code>RevelaZunidores-1.0.1</code>.</li>
+            <li>Abra a pasta <code>reshade_addon</code>.</li>
+            <li>Copie o arquivo <code>RevelaZunidores.addon64</code>.</li>
+            <li>Cole-o na pasta <code>Win64</code> do jogo:</li>
+          </ol>
+
+          <div class="path-banner">
+            <code>Atomic Heart\AtomicHeart\Binaries\Win64</code>
+            <button class="copy-btn" onclick="copyText('Atomic Heart\\AtomicHeart\\Binaries\\Win64', this)">Copy</button>
+          </div>
+        </div>
+      </details>
+
+      <!-- TROUBLESHOOTING -->
+      <details class="guide-step">
+        <summary>
+          <strong data-lang="en">⚠️ Troubleshooting</strong>
+          <strong data-lang="pt">⚠️ Solução de Problemas</strong>
+        </summary>
+        <div class="guide-body">
+          <p data-lang="en">If the mod does not work correctly, double-check that:</p>
+          <p data-lang="pt">Se o mod não funcionar corretamente, verifique se:</p>
+
+          <ul class="clean-list" data-lang="en">
+            <li>UE4SS was installed in the correct directory.</li>
+            <li>The configuration files were replaced correctly.</li>
+            <li>The <code>RevelaZunidores</code> folder is inside <code>ue4ss\Mods</code>.</li>
+            <li>The <code>enabled.txt</code> file was created correctly.</li>
+            <li>The ReShade add-on was copied into the game's <code>Win64</code> folder.</li>
+          </ul>
+
+          <ul class="clean-list" data-lang="pt">
+            <li>O UE4SS foi instalado no diretório correto.</li>
+            <li>Os arquivos de configuração foram substituídos corretamente.</li>
+            <li>A pasta <code>RevelaZunidores</code> está dentro de <code>ue4ss\Mods</code>.</li>
+            <li>O arquivo <code>enabled.txt</code> foi criado corretamente.</li>
+            <li>O add-on do ReShade foi copiado para a pasta <code>Win64</code> do jogo.</li>
+          </ul>
+        </div>
+      </details>
     </section>
 
     <!-- Settings & Building -->
